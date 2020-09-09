@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>水果列表</title>
+</head>
+<body>
+    <form method="get">
+        <input name="price1" value="0"> -
+        <input name="price2" value="1000">
+        <button>搜索</button>
+    </form>
+    <ul>
+        {% for fruit in fruits %}
+            <li>
+                {{ fruit.name }} - {{ fruit.price }}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
