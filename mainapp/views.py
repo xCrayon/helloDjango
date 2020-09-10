@@ -1,5 +1,9 @@
+import random
+
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
+from django.template import loader
+
 from mainapp.models import UserEntity, FruitEntity, StoreEntity
 from django.db.models import Count, Max, Min, Sum, Avg, F, Q
 
@@ -36,9 +40,27 @@ def user_list2(request):
 def user_list3(request):
     users = UserEntity.objects.all()
     msg = '最优秀的学员'
-    return render(request,
-                  'user/list.html',
-                  locals())
+
+    error_index = random.randint(0, users.count()-1)
+
+    vip = {
+        'name': 'crayon',
+        'money': 10000000
+    }
+
+    html = loader.render_to_string('user/list.html', locals())
+
+    # 加载模型
+    # template = loader.get_template('user/list.html')
+    # 渲染模板
+    # html = template.render(context={
+    #     'msg': msg,
+    #     'users': users
+    # })
+    return HttpResponse(html, status=200)
+    # return render(request,
+    #               'user/list.html',
+    #               locals())
 
 
 def add_user(request):

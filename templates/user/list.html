@@ -3,13 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>主页</title>
+    {% include 'base_css.html' %}
 </head>
 <body>
 <h3> {{ msg }} </h3>
+<p style="color: darkgreen">
+    第三个用户名: {{ users.2.name }}
+</p>
+<p style="color: palevioletred">
+   今天请客的人: {{ error_index }}
+</p>
+<p style="color: cornflowerblue; background-color: bisque">
+    <span>VIP : </span>
+    <span>{{ vip.name.upper }} - {{ vip.money }}</span>
+</p>
+<ul>
+    {% for key, value in vip.items %}
+        <li>{{ key }} = {{ value }}</li>
+    {% endfor %}
+</ul>
 <u1>
     {% for user in users %}
         <li>{{ user.id}} {{ user.name }}</li>
+        {% if forloop.counter0 == error_index %}
+            <p style="color: palevioletred">
+                今天请客的人: {{ user.name }}
+            </p>
+        {% endif %}
     {% endfor %}
 </u1>
+
+{% include 'base_js.html' %}
 </body>
 </html>
