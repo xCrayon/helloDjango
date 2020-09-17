@@ -1,15 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>主页</title>
-</head>
-<body>
-<h3> {{ msg }} </h3>
-<u1>
-    {% for user in users %}
-        <li>{{ user.id}} {{ user.name }}</li>
-    {% endfor %}
-</u1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block css %}
+    <style>
+        #logo{
+                margin: 0 10px;
+                display: inline-block;
+                width: 15px;
+                height: 15px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <p>
+        <a href="{% url 'orderapp:list' order_num=1001 city_code='csc' %}">订单</a>
+    </p>
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    <p class="text-center">
+        网备IDC:202009150001
+    </p>
+{% endblock %}

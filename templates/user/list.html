@@ -5,8 +5,13 @@
     <title>主页</title>
     {% include 'base_css.html' %}
 </head>
-<body>
+<body class="container">
 <h3> {{ msg }} </h3>
+
+<p style="color: #985f0d;background-color: #67b168 ">
+    当前登录的用户: {{ request.session.login_user.name }}
+</p>
+
 <p style="color: darkgreen">
     第三个用户名: {{ users.2.name }}
 </p>
@@ -32,6 +37,65 @@
         {% endif %}
     {% endfor %}
 </u1>
+
+<table class="table table-bordered table-responsive table-hover table-striped">
+    <thead>
+        <th>ID</th>
+        <th>账号</th>
+        <th>真实姓名</th>
+        <th>手机号</th>
+    </thead>
+    <tbody>
+
+    {% if users %}
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.realprofile.real_name }}</td>
+                <td>{{ user.phone }}</td>
+            </tr>
+        {% endfor %}
+
+    {% else %}
+        <tr>
+            <td colspan="4">无数据</td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<select>
+    {% for name in names %}
+        <option>{{ name }}</option>
+        {% empty %}
+        <option>空</option>
+    {% endfor %}
+</select>
+
+{% autoescape on %}
+    <pre>
+        {{ info }}
+    </pre>
+{% endautoescape %}
+
+<p>
+    {{ now|date:"Y-m-d H:i:s" }}
+</p>
+
+{% for path, f_stat in files.items %}
+<p>
+    {{ path|ellipse }} 的文件大小为 : {{ f_stat.st_size|filesizeformat }}
+</p>
+{% endfor %}
+
+<p>
+    价格: {{ price|floatformat:2 }}
+</p>
+
+<p>
+    {{ img_html|safe }}
+</p>
 
 {% include 'base_js.html' %}
 </body>

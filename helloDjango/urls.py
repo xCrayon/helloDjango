@@ -33,20 +33,16 @@ from django.conf.urls.static import static
 #  请求体: body(字节类型)
 def index(request: HttpRequest):
     # 加载数据模型
-    users = [
-        {'id': 1, 'name': 'crayon'},
-        {'id': 2, 'name': 'ironman'},
-        {'id': 3, 'name': 'stark'}
-    ]
     # 将数据渲染搭配模板中，并将渲染之后的html响应给客户端
-    return render(request, 'index.html', {'users': users,
-                                          'msg': '所有用户'})
+    return render(request, 'index.html', locals())
     # return HttpResponse('<h1>hi, Django</h1>'.encode('utf-8'))
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index', index),
+    # path('index', index),
     # 配置子路由, include()导入app模块下urls.py中声明的所有子路由
     path('user/', include('mainapp.urls')),
+    path('order/', include('orderapp.urls', namespace='order')),
+    path('', index),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
